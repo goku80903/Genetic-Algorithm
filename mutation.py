@@ -13,7 +13,7 @@ def swap_mutation(parent):
     temp = np.copy(parent)
     invert1 = int(rand.uniform(0,10))
     while not invert1:
-        invert1 = int(rand.uniform(0,11))
+        invert1 = int(rand.uniform(0,10))
     invert2 = int(rand.uniform(invert1+1,11))
     temp[invert1] , temp[invert2] = temp[invert2] , temp[invert1]
     return temp
