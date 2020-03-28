@@ -8,14 +8,17 @@ key = '4scAFELWNu1oZKJ7xovrpF4uMhuOAtUNizeYl9cAIVx5F8Vp72'
 
 def generate_population():
     new_gen = np.random.uniform(low = -10 , high = 10 , size=(16,11))
+    new_gen[0] = file_input()
+    for i in range(1,16):
+        new_gen[i] = mut.random_resetting_mutation(new_gen[0])
     return (new_gen)
 
 def file_input():
     model = open('overfit.txt')
     model = model.read()
     mode = np.fromstring(model.replace("[","").replace("]","",).replace(",","   "),sep="    ")
-    model = np.ndarray.tolist(mode)
-    return model
+    # model = np.ndarray.tolist(mode)
+    return mode
 
 def fitness_function(generation):
     fitness = []
@@ -26,7 +29,7 @@ def fitness_function(generation):
 
 def main():
     np.set_printoptions(formatter={'float_kind':'{:f}'.format})
-    population = np.load('example.npy')
+    population = generate_population()
     while 1:
         fitness = fitness_function(population)
         print(population,fitness)
@@ -36,16 +39,18 @@ def main():
         offspring[0]= sel.roulette_selection(population,fitness)
         offspring[1]= sel.rank_selection(population,fitness)
         parents = np.array([offspring[0],offspring[1]])
-        offspring[3]=mut.inversion_mutation(parents[0])
-        offspring[4]=mut.inversion_mutation(parents[1])
-        offspring[5]=mut.random_resetting_mutation(parents[1])
-        offspring[6]=mut.random_resetting_mutation(parents[0])
-        offspring[7]=mut.scramble_mutation(parents[0])
-        offspring[8]=mut.scramble_mutation(parents[1])
-        offspring[9]=mut.swap_mutation(parents[0])
-        offspring[10]=mut.swap_mutation(parents[1])
-        offspring[11:13]=cs.multi_point_crossover(parents)
-        offspring[13:15]=cs.one_point_crossover(parents)
-        offspring[15:17]=cs.uniform_crossover(parents)
+        offspring[2]=mut.inversion_mutation(parents[0])
+        offspring[3]=mut.inversion_mutation(parents[1])
+        offspring[4]=mut.random_resetting_mutation(parents[1])
+        offspring[5]=mut.random_resetting_mutation(parents[0])
+        offspring[6]=mut.scramble_mutation(parents[0])
+        offspring[7]=mut.scramble_mutation(parents[1])
+        offspring[8]=mut.swap_mutation(parents[0])
+        offspring[9]=mut.swap_mutation(parents[1])
+        offspring[10:12]=cs.multi_point_crossover(parents)
+        offspring[12:14]=cs.one_point_crossover(parents)
+        offspring[14:16]=cs.uniform_crossover(parents)
         population = np.copy(offspring)
+        print(cl.submit(key,np.ndarray.tolist(parents[0])))
+        print(cl.submit(key,np.ndarray.tolist(parents[1])))
 main()

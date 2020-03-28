@@ -25,7 +25,6 @@ def roulette_selection(generation,fitness):
 def rank_selection(generation,fitness):
     select = np.copy(fitness)
     select = np.sum(select,axis = 1)
-    select = np.append(generation, select)
     mini = 10e100
     index = 0
     for i in range(len(generation)):
@@ -38,7 +37,6 @@ def rank_selection(generation,fitness):
 def rank_selection2(generation,fitness):
     select = np.copy(fitness)
     select = np.sum(select,axis = 1)
-    select = np.append(generation, select)
     mini = 10e100
     index = 0
     for i in range(len(generation)):
