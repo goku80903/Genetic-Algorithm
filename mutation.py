@@ -14,8 +14,8 @@ def random_setting_mutation(parent):
     invert = int(rand.uniform(0,11))
     while not invert:
         invert = int(rand.uniform(0,11))
-    random_number = rand.uniform(-0.05,0.05)
-    temp[invert] += random_number
+    random_number = rand.uniform(-0.5,0.5)
+    temp[invert] *= random_number
     return temp
 
 def swap_mutation(parent):
