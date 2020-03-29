@@ -9,6 +9,15 @@ def random_resetting_mutation(parent):
     temp[invert] = random_number
     return temp
 
+def random_setting_mutation(parent):
+    temp = np.copy(parent)
+    invert = int(rand.uniform(0,11))
+    while not invert:
+        invert = int(rand.uniform(0,11))
+    random_number = rand.uniform(-1,1)
+    temp[invert] += random_number
+    return temp
+
 def swap_mutation(parent):
     temp = np.copy(parent)
     invert1 = int(rand.uniform(0,10))
