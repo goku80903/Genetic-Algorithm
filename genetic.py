@@ -37,8 +37,14 @@ def main():
         offspring = np.zeros((16,11))
         offspring[0:2]= sel.rank_selection(population,fitness)
         offspring[0:2]= sel.rank_selection2(population,fitness)
-        for i in range(4,16):
+        for i in range(4,10):
             offspring[i] = mut.random_setting_mutation(offspring[rand.randint(0,4)])
+        for i in range(10,16):
+            first = rand.randint(0,4)
+            second = rand.randint(0,4)
+            while first is not second:
+                second = rand.randint(0,4)
+            offspring[i] = cs.mutation_crossover(np.array([offspring[first],offspring[second]]))
         population = np.copy(offspring)
         print(cl.submit(key,np.ndarray.tolist(offspring[0])))
         print(cl.submit(key,np.ndarray.tolist(offspring[1])))
