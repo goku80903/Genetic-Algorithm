@@ -28,7 +28,7 @@ def fitness_function(generation):
 
 def main():
     np.set_printoptions(formatter={'float_kind':'{:f}'.format})
-    population = generate_population()
+    population = np.load('example.npy')
     while 1:
         fitness = fitness_function(population)
         np.save('example',population)
@@ -36,7 +36,8 @@ def main():
         print(population,fitness)
         offspring = np.zeros((16,11))
         offspring[0:2]= sel.rank_selection(population,fitness)
-        offspring[0:2]= sel.rank_selection2(population,fitness)
+        offspring[2] = sel.roulette_selection(population,fitness)
+        offspring[3] = sel.roulette_selection(population,fitness)
         for i in range(4,10):
             offspring[i] = mut.random_setting_mutation(offspring[rand.randint(0,4)])
         for i in range(10,16):
